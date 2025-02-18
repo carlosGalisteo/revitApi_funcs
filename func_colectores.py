@@ -15,35 +15,6 @@ doc = DocumentManager.Instance.CurrentDBDocument
 
 #FUNCIONES
 # ..............................................................................
-def seleccion_por_nombre_categoria(nombre = None):
-    """
-    Uso:
-        Seleccionar una categoria de Revit por nombre
-    Entradas:
-        Si el usuario no introduce ningún argumento extrae la lista completa
-        de nombre.
-        nombre <str>: Nombre de la categoría a seleccionar.
-    Salida:
-        Si se introduce correctamente el nombre se obtiene una categoría de
-        Revit <Category>
-    """
-    # Se accede al listado completo de categorias y se consultan los nombres
-    categorias = doc.Settings.Categories
-    nombres = [cat.Name for cat in categorias]
-    # Se revisa si el usuario ha introducido algún argumento
-    if bool(nombre):
-        # Se revisa que el argumento está dentro de la lista de nombres
-        if nombre in nombres:
-            # Se genera un diccionario para extraer la categoría por clave
-            salida = dict(zip(nombres, categorias))[nombre]
-        else:
-            salida = "Revisar nombre de categoría"
-    else:
-        # Se extrae la lista ordenada de todos los nombres
-        salida = sorted(nombres)
-        
-    return salida
-# ..............................................................................
 
 def elementos_por_categoria(cat):
     """
@@ -178,3 +149,5 @@ def elementos_por_nombre_bic(arg = None):
     
     return salida
 # ..............................................................................       
+
+
