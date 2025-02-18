@@ -6,7 +6,7 @@ import Autodesk
 import System
 
 clr.AddReference('RevitAPI')
-from Autodesk.Revit.DB import FilteredElementCollector, ElementId, BuiltInCategory
+from Autodesk.Revit.DB import FilteredElementCollector, ElementId, BuiltInCategory, ElementLevelFilter, Level
 
 clr.AddReference('RevitServices')
 from RevitServices.Persistence import DocumentManager
@@ -150,4 +150,23 @@ def elementos_por_nombre_bic(arg = None):
     return salida
 # ..............................................................................       
 
-
+def instancias_por_nivel(nivel):
+    """
+    Uso:
+        Se colectan todas las instancias conocido el nivel
+    Entradas:
+        nivel <Autodesk.Revit.DB.Level>: Nivel
+    Salida:
+        Se genera una lista con todas las instancias
+    """
+    # Se revisa que el argumento sea el correcto
+    if isinstance(nivel, Level):
+        # Construimos el filtro
+        filtro = ElementLevelFilter(nivel.Id)
+        salida = (FilteredElementCollector(doc).WherePasses(filtro).
+                  ToElements())
+    else:
+        salida = "Introducir un nivel <Autodesk.Revit.DB.Level>"
+    
+    return salida   
+        
